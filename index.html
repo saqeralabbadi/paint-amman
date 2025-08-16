@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Art Axis - الصفحة الرئيسية</title>
+    <title>Art Axis - منتجاتنا</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,7 +13,6 @@
             direction: rtl;
         }
 
-        /* رأس الصفحة مع شريط ألوان */
         header {
             background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
             color: #fff;
@@ -39,10 +38,9 @@
             text-decoration: underline;
         }
 
-        /* صورة الـ Hero الجديدة */
         .hero {
             background: url('https://i.ibb.co/FJwVhgV/paint-brush-color.jpg') center/cover no-repeat;
-            height: 400px;
+            height: 300px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -52,11 +50,23 @@
             text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
         }
 
+        .filter {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 15px;
+        }
+
+        .filter select {
+            padding: 8px;
+            font-size: 1em;
+        }
+
         .products {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            padding: 30px;
+            padding: 20px;
             gap: 20px;
         }
 
@@ -113,41 +123,92 @@
     </header>
 
     <nav>
-        <a href="#">الرئيسية</a>
+        <a href="index.html">الرئيسية</a>
         <a href="#">منتجاتنا</a>
         <a href="#">نصائح الديكور</a>
         <a href="#">تواصل معنا</a>
     </nav>
 
     <div class="hero">
-        ألوان تدوم مع Art Axis
+        اكتشف ألواننا المتنوعة
     </div>
 
-    <section class="products">
-        <div class="product">
+    <div class="filter">
+        <select id="colorFilter" onchange="filterProducts()">
+            <option value="all">جميع الألوان</option>
+            <option value="أبيض">أبيض</option>
+            <option value="أزرق">أزرق</option>
+            <option value="أصفر">أصفر</option>
+            <option value="أحمر">أحمر</option>
+            <option value="أخضر">أخضر</option>
+        </select>
+
+        <select id="typeFilter" onchange="filterProducts()">
+            <option value="all">جميع الأنواع</option>
+            <option value="حوائط داخلية">حوائط داخلية</option>
+            <option value="حوائط خارجية">حوائط خارجية</option>
+            <option value="خشب">خشب</option>
+        </select>
+    </div>
+
+    <section class="products" id="productsContainer">
+        <div class="product" data-color="أبيض" data-type="حوائط داخلية">
             <img src="https://i.ibb.co/K2Rkr4H/paint1.jpg" alt="دهان أبيض">
             <h3>دهان أبيض</h3>
-            <p>دهان عالي الجودة للحوائط الداخلية والخارجية</p>
+            <p>دهان عالي الجودة للحوائط الداخلية</p>
             <p class="price">25 د.أ</p>
         </div>
-        <div class="product">
+        <div class="product" data-color="أزرق" data-type="حوائط داخلية">
             <img src="https://i.ibb.co/bR6HhN7/paint2.jpg" alt="دهان أزرق">
             <h3>دهان أزرق</h3>
-            <p>لون هادئ ومناسب لغرف النوم والمكاتب</p>
+            <p>لون هادئ لغرف النوم والمكاتب</p>
             <p class="price">30 د.أ</p>
         </div>
-        <div class="product">
+        <div class="product" data-color="أصفر" data-type="حوائط خارجية">
             <img src="https://i.ibb.co/4tq5B9D/paint3.jpg" alt="دهان أصفر">
             <h3>دهان أصفر</h3>
-            <p>لون مشرق ومناسب لغرف المعيشة والمطابخ</p>
+            <p>لون مشرق لغرف المعيشة والمطابخ</p>
             <p class="price">28 د.أ</p>
+        </div>
+        <div class="product" data-color="أحمر" data-type="خشب">
+            <img src="https://i.ibb.co/yVn3TJ6/paint-red.jpg" alt="دهان أحمر">
+            <h3>دهان أحمر</h3>
+            <p>لون نابض بالحياة للأثاث الخشبي</p>
+            <p class="price">32 د.أ</p>
+        </div>
+        <div class="product" data-color="أخضر" data-type="حوائط خارجية">
+            <img src="https://i.ibb.co/pR0m4vF/paint-green.jpg" alt="دهان أخضر">
+            <h3>دهان أخضر</h3>
+            <p>لون طبيعي للحدائق والأسطح الخارجية</p>
+            <p class="price">29 د.أ</p>
         </div>
     </section>
 
     <footer>
         جميع الحقوق محفوظة &copy; 2025 | <a href="#">تواصل معنا</a>
     </footer>
+
+    <script>
+        function filterProducts() {
+            const color = document.getElementById('colorFilter').value;
+            const type = document.getElementById('typeFilter').value;
+            const products = document.querySelectorAll('.product');
+
+            products.forEach(product => {
+                const productColor = product.getAttribute('data-color');
+                const productType = product.getAttribute('data-type');
+
+                if ((color === 'all' || color === productColor) &&
+                    (type === 'all' || type === productType)) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
+
 
 
