@@ -1,69 +1,104 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دهانات عمان</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دهانات عمان - نسخة طبق الأصل</title>
+  <style>
+    /* Reset */
+    * { margin:0; padding:0; box-sizing:border-box; font-family:Arial, sans-serif; }
+    body { line-height:1.6; background-color:#fff; color:#333; }
+
+    /* Container */
+    .container { width:90%; max-width:1200px; margin:auto; }
+
+    /* Header */
+    header { background-color:#f6f6f6; padding:20px 0; display:flex; align-items:center; justify-content:space-between; }
+    .logo { font-size:24px; font-weight:bold; color:#1a1a1a; }
+    nav ul { display:flex; list-style:none; gap:20px; }
+    nav ul li a { text-decoration:none; color:#333; font-weight:bold; }
+
+    /* Banner */
+    .banner { position:relative; text-align:center; margin-bottom:50px; }
+    .banner img { width:100%; height:auto; }
+    .banner-text { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#fff; }
+    .banner-text h1 { font-size:48px; margin-bottom:10px; }
+    .banner-text p { font-size:20px; margin-bottom:20px; }
+    .banner-text .btn { background-color:#ed1c24; color:#fff; padding:10px 25px; text-decoration:none; border-radius:5px; }
+
+    /* Products */
+    .products { padding:60px 0; background-color:#f9f9f9; }
+    .products h2 { text-align:center; margin-bottom:40px; }
+    .product-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
+    .product-card { background:#fff; border-radius:10px; overflow:hidden; text-align:center; padding:15px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+    .product-card img { width:100%; height:auto; margin-bottom:15px; }
+
+    /* Footer */
+    footer { background-color:#333; color:#fff; padding:20px 0; text-align:center; }
+    footer a { color:#fff; text-decoration:none; margin-left:15px; }
+  </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="logo">دهانات عمان</div>
-            <nav>
-                <ul>
-                    <li><a href="#">الرئيسية</a></li>
-                    <li><a href="#">المنتجات</a></li>
-                    <li><a href="#">الألوان</a></li>
-                    <li><a href="#">اتصل بنا</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="logo">دهانات عمان</div>
+      <nav>
+        <ul>
+          <li><a href="#">الرئيسية</a></li>
+          <li><a href="#">المنتجات</a></li>
+          <li><a href="#">الألوان</a></li>
+          <li><a href="#">اتصل بنا</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-    <!-- Banner -->
-    <section class="banner">
-        <img src="images/banner.jpg" alt="دهانات عمان">
-        <div class="banner-text">
-            <h1>حوّل مساحتك بألوان فائقة الجودة</h1>
-            <p>استكشف مجموعة واسعة من الألوان والدهانات التي تضفي لمسة جمالية على منزلك.</p>
-            <a href="#" class="btn">اكتشف المزيد</a>
-        </div>
-    </section>
+  <!-- Banner -->
+  <section class="banner">
+    <img src="images/banner.jpg" alt="دهانات عمان">
+    <div class="banner-text">
+      <h1>حوّل مساحتك بألوان فائقة الجودة</h1>
+      <p>استكشف مجموعة واسعة من الألوان والدهانات التي تضفي لمسة جمالية على منزلك.</p>
+      <a href="#" class="btn">اكتشف المزيد</a>
+    </div>
+  </section>
 
-    <!-- Products -->
-    <section class="products">
-        <div class="container">
-            <h2>منتجاتنا</h2>
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="images/product1.jpg" alt="منتج 1">
-                    <h3>منتج 1</h3>
-                    <p>وصف المنتج 1</p>
-                </div>
-                <div class="product-card">
-                    <img src="images/product2.jpg" alt="منتج 2">
-                    <h3>منتج 2</h3>
-                    <p>وصف المنتج 2</p>
-                </div>
-                <div class="product-card">
-                    <img src="images/product3.jpg" alt="منتج 3">
-                    <h3>منتج 3</h3>
-                    <p>وصف المنتج 3</p>
-                </div>
-            </div>
+  <!-- Products -->
+  <section class="products">
+    <div class="container">
+      <h2>منتجاتنا</h2>
+      <div class="product-grid">
+        <div class="product-card">
+          <img src="images/product1.jpg" alt="منتج 1">
+          <h3>منتج 1</h3>
+          <p>وصف المنتج 1</p>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 دهانات عمان. جميع الحقوق محفوظة.</p>
+        <div class="product-card">
+          <img src="images/product2.jpg" alt="منتج 2">
+          <h3>منتج 2</h3>
+          <p>وصف المنتج 2</p>
         </div>
-    </footer>
+        <div class="product-card">
+          <img src="images/product3.jpg" alt="منتج 3">
+          <h3>منتج 3</h3>
+          <p>وصف المنتج 3</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script src="script.js"></script>
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 دهانات عمان. جميع الحقوق محفوظة.</p>
+    </div>
+  </footer>
+
+  <script>
+    // مثال: يمكن إضافة أي تفاعلات هنا لاحقًا
+    console.log('موقع جاهز للعمل');
+  </script>
 </body>
 </html>
