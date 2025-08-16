@@ -3,73 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دهانات الجزيرة</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <title>art axis- الصفحة الرئيسية</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            direction: rtl;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #0056b3;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .hero {
+            background: url('https://i.ibb.co/TmLvWgX/paint-hero.jpg') center/cover no-repeat;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 2em;
+            font-weight: bold;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+        }
+
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 30px;
+            gap: 20px;
+        }
+
+        .product {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            width: 250px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .product h3 {
+            margin: 10px 0 5px 0;
+            font-size: 1.2em;
+        }
+
+        .product p {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .price {
+            color: #e74c3c;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        footer {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <!-- Navbar -->
     <header>
-        <div class="logo">دهانات الجزيرة</div>
-        <nav>
-            <ul>
-                <li><a href="#products">المنتجات</a></li>
-                <li><a href="#calculator">حاسبة الدهان</a></li>
-                <li><a href="#contact">اتصل بنا</a></li>
-            </ul>
-        </nav>
+        <h1>جزيــرة للدهانات</h1>
     </header>
 
-    <!-- Banner -->
-    <section class="banner">
-        <h1>أفضل دهانات عالية الجودة لمنزلك</h1>
-        <p>اكتشف منتجاتنا وتعرف على كمية الدهان المناسبة لمساحتك</p>
-    </section>
+    <nav>
+        <a href="#">الرئيسية</a>
+        <a href="#">منتجاتنا</a>
+        <a href="#">نصائح الديكور</a>
+        <a href="#">تواصل معنا</a>
+    </nav>
 
-    <!-- Products -->
-    <section id="products">
-        <h2>منتجاتنا</h2>
-        <div class="product-grid">
-            <div class="product-card">
-                <img src="images/product1.jpg" alt="منتج 1">
-                <h3>دهان داخلي ممتاز</h3>
-                <p>السعر: 120 ريال</p>
-            </div>
-            <div class="product-card">
-                <img src="images/product2.jpg" alt="منتج 2">
-                <h3>دهان خارجي مقاوم</h3>
-                <p>السعر: 150 ريال</p>
-            </div>
-            <div class="product-card">
-                <img src="images/product3.jpg" alt="منتج 3">
-                <h3>دهان ضد الرطوبة</h3>
-                <p>السعر: 180 ريال</p>
-            </div>
+    <div class="hero">
+        ألوان تدوم مع جزيــرة
+    </div>
+
+    <section class="products">
+        <div class="product">
+            <img src="https://i.ibb.co/K2Rkr4H/paint1.jpg" alt="دهان أبيض">
+            <h3>دهان أبيض</h3>
+            <p>دهان عالي الجودة للحوائط الداخلية والخارجية</p>
+            <p class="price">25 د.أ</p>
+        </div>
+        <div class="product">
+            <img src="https://i.ibb.co/bR6HhN7/paint2.jpg" alt="دهان أزرق">
+            <h3>دهان أزرق</h3>
+            <p>لون هادئ ومناسب لغرف النوم والمكاتب</p>
+            <p class="price">30 د.أ</p>
+        </div>
+        <div class="product">
+            <img src="https://i.ibb.co/4tq5B9D/paint3.jpg" alt="دهان أصفر">
+            <h3>دهان أصفر</h3>
+            <p>لون مشرق ومناسب لغرف المعيشة والمطابخ</p>
+            <p class="price">28 د.أ</p>
         </div>
     </section>
 
-    <!-- Paint Calculator -->
-    <section id="calculator">
-        <h2>حاسبة الدهان</h2>
-        <form id="paintForm">
-            <input type="number" id="area" placeholder="المساحة بالمتر²" required>
-            <button type="submit">احسب</button>
-        </form>
-        <p id="result"></p>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact">
-        <h2>اتصل بنا</h2>
-        <p>البريد الإلكتروني: info@jazeerapaints.com</p>
-        <p>رقم الهاتف: 12345678</p>
-    </section>
-
-    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 دهانات الجزيرة. جميع الحقوق محفوظة.</p>
+        جميع الحقوق محفوظة &copy; 2025 | <a href="#">تواصل معنا</a>
     </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>
+
