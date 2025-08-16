@@ -3,124 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Art Axis - منتجاتنا</title>
+    <title>Art Axis - الصفحة الرئيسية</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: #f8f8f8;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
             direction: rtl;
         }
 
+        /* رأس الصفحة */
         header {
-            background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+            background: linear-gradient(to right, #ff4d4d, #ffb84d, #fff44d, #4dff4d, #4dffff, #4d4dff, #b84dff);
             color: #fff;
-            padding: 20px;
+            padding: 20px 0;
             text-align: center;
-        }
-
-        nav {
-            background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-            display: flex;
-            justify-content: center;
-            padding: 10px;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 15px;
+            font-size: 2em;
             font-weight: bold;
         }
 
-        nav a:hover {
-            text-decoration: underline;
+        /* شريط التنقل */
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
+        nav a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 20px;
+            padding: 15px 0;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ff4d4d;
+        }
+
+        /* بانر رئيسي */
         .hero {
             background: url('https://i.ibb.co/FJwVhgV/paint-brush-color.jpg') center/cover no-repeat;
-            height: 300px;
+            height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #fff;
-            font-size: 2em;
+            font-size: 2.5em;
             font-weight: bold;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
         }
 
-        .filter {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-            gap: 15px;
+        /* قسم المنتجات */
+        .products-section {
+            padding: 40px 20px;
+            text-align: center;
         }
 
-        .filter select {
-            padding: 8px;
-            font-size: 1em;
+        .products-section h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #333;
         }
 
         .products {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            padding: 20px;
-            gap: 20px;
+            gap: 25px;
         }
 
         .product {
             background-color: #fff;
-            border: 1px solid #ddd;
-            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             width: 250px;
-            text-align: center;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
         }
 
         .product img {
             width: 100%;
-            height: auto;
-            border-radius: 5px;
+            height: 180px;
+            object-fit: cover;
         }
 
-        .product h3 {
+        .product-details {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .product-details h3 {
             margin: 10px 0 5px 0;
             font-size: 1.2em;
+            color: #333;
         }
 
-        .product p {
+        .product-details p {
+            color: #666;
             font-size: 0.9em;
-            color: #555;
         }
 
         .price {
-            color: #e74c3c;
-            font-size: 1.1em;
-            font-weight: bold;
             margin-top: 10px;
+            color: #ff4d4d;
+            font-weight: bold;
+            font-size: 1.1em;
         }
 
+        /* Footer */
         footer {
-            background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+            background: linear-gradient(to right, #ff4d4d, #ffb84d, #fff44d, #4dff4d, #4dffff, #4d4dff, #b84dff);
             color: #fff;
             text-align: center;
-            padding: 15px;
-            margin-top: 30px;
+            padding: 20px;
+            margin-top: 40px;
         }
 
         footer a {
             color: #fff;
             text-decoration: underline;
         }
+
+        /* Responsive */
+        @media(max-width: 768px) {
+            .products {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav {
+                flex-direction: column;
+            }
+
+            nav a {
+                margin: 10px 0;
+            }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Art Axis</h1>
-    </header>
+    <header>Art Axis</header>
 
     <nav>
         <a href="index.html">الرئيسية</a>
@@ -130,83 +159,58 @@
     </nav>
 
     <div class="hero">
-        اكتشف ألواننا المتنوعة
+        ألوان حية وجودة تدوم
     </div>
 
-    <div class="filter">
-        <select id="colorFilter" onchange="filterProducts()">
-            <option value="all">جميع الألوان</option>
-            <option value="أبيض">أبيض</option>
-            <option value="أزرق">أزرق</option>
-            <option value="أصفر">أصفر</option>
-            <option value="أحمر">أحمر</option>
-            <option value="أخضر">أخضر</option>
-        </select>
-
-        <select id="typeFilter" onchange="filterProducts()">
-            <option value="all">جميع الأنواع</option>
-            <option value="حوائط داخلية">حوائط داخلية</option>
-            <option value="حوائط خارجية">حوائط خارجية</option>
-            <option value="خشب">خشب</option>
-        </select>
-    </div>
-
-    <section class="products" id="productsContainer">
-        <div class="product" data-color="أبيض" data-type="حوائط داخلية">
-            <img src="https://i.ibb.co/K2Rkr4H/paint1.jpg" alt="دهان أبيض">
-            <h3>دهان أبيض</h3>
-            <p>دهان عالي الجودة للحوائط الداخلية</p>
-            <p class="price">25 د.أ</p>
-        </div>
-        <div class="product" data-color="أزرق" data-type="حوائط داخلية">
-            <img src="https://i.ibb.co/bR6HhN7/paint2.jpg" alt="دهان أزرق">
-            <h3>دهان أزرق</h3>
-            <p>لون هادئ لغرف النوم والمكاتب</p>
-            <p class="price">30 د.أ</p>
-        </div>
-        <div class="product" data-color="أصفر" data-type="حوائط خارجية">
-            <img src="https://i.ibb.co/4tq5B9D/paint3.jpg" alt="دهان أصفر">
-            <h3>دهان أصفر</h3>
-            <p>لون مشرق لغرف المعيشة والمطابخ</p>
-            <p class="price">28 د.أ</p>
-        </div>
-        <div class="product" data-color="أحمر" data-type="خشب">
-            <img src="https://i.ibb.co/yVn3TJ6/paint-red.jpg" alt="دهان أحمر">
-            <h3>دهان أحمر</h3>
-            <p>لون نابض بالحياة للأثاث الخشبي</p>
-            <p class="price">32 د.أ</p>
-        </div>
-        <div class="product" data-color="أخضر" data-type="حوائط خارجية">
-            <img src="https://i.ibb.co/pR0m4vF/paint-green.jpg" alt="دهان أخضر">
-            <h3>دهان أخضر</h3>
-            <p>لون طبيعي للحدائق والأسطح الخارجية</p>
-            <p class="price">29 د.أ</p>
+    <section class="products-section">
+        <h2>منتجاتنا</h2>
+        <div class="products">
+            <div class="product">
+                <img src="https://i.ibb.co/K2Rkr4H/paint1.jpg" alt="دهان أبيض">
+                <div class="product-details">
+                    <h3>دهان أبيض</h3>
+                    <p>دهان عالي الجودة للحوائط الداخلية</p>
+                    <p class="price">25 د.أ</p>
+                </div>
+            </div>
+            <div class="product">
+                <img src="https://i.ibb.co/bR6HhN7/paint2.jpg" alt="دهان أزرق">
+                <div class="product-details">
+                    <h3>دهان أزرق</h3>
+                    <p>لون هادئ لغرف النوم والمكاتب</p>
+                    <p class="price">30 د.أ</p>
+                </div>
+            </div>
+            <div class="product">
+                <img src="https://i.ibb.co/4tq5B9D/paint3.jpg" alt="دهان أصفر">
+                <div class="product-details">
+                    <h3>دهان أصفر</h3>
+                    <p>لون مشرق لغرف المعيشة والمطابخ</p>
+                    <p class="price">28 د.أ</p>
+                </div>
+            </div>
+            <div class="product">
+                <img src="https://i.ibb.co/yVn3TJ6/paint-red.jpg" alt="دهان أحمر">
+                <div class="product-details">
+                    <h3>دهان أحمر</h3>
+                    <p>لون نابض بالحياة للأثاث الخشبي</p>
+                    <p class="price">32 د.أ</p>
+                </div>
+            </div>
+            <div class="product">
+                <img src="https://i.ibb.co/pR0m4vF/paint-green.jpg" alt="دهان أخضر">
+                <div class="product-details">
+                    <h3>دهان أخضر</h3>
+                    <p>لون طبيعي للحدائق والأسطح الخارجية</p>
+                    <p class="price">29 د.أ</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <footer>
         جميع الحقوق محفوظة &copy; 2025 | <a href="#">تواصل معنا</a>
     </footer>
-
-    <script>
-        function filterProducts() {
-            const color = document.getElementById('colorFilter').value;
-            const type = document.getElementById('typeFilter').value;
-            const products = document.querySelectorAll('.product');
-
-            products.forEach(product => {
-                const productColor = product.getAttribute('data-color');
-                const productType = product.getAttribute('data-type');
-
-                if ((color === 'all' || color === productColor) &&
-                    (type === 'all' || type === productType)) {
-                    product.style.display = 'block';
-                } else {
-                    product.style.display = 'none';
-                }
-            });
-        }
-    </script>
 </body>
 </html>
 
