@@ -1,410 +1,66 @@
-"use client";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Paintbrush, Home, Phone, Hammer, Palette, CheckCircle, Building2, Quote, Star, ChevronRight, MessageCircle, Mail, MapPin, Instagram, Facebook } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-
-// ملاحظات سريعة:
-// - الملف يعمل كصفحة React واحدة (Landing Page) بالعربية/اتجاه RTL.
-// - يعتمد على Tailwind + shadcn/ui + framer-motion + lucide-react.
-// - استبدل PLACEHOLDER_PHONE و PLACEHOLDER_EMAIL و روابط السوشال.
-// - ضع صور أعمالك في مجلد عام أو استبدل الروابط في قسم "المعرض".
-
-const navItems = [
-  { id: "services", label: "خدماتنا" },
-  { id: "portfolio", label: "المعرض" },
-  { id: "process", label: "خطوات العمل" },
-  { id: "pricing", label: "الباقات" },
-  { id: "testimonials", label: "آراء العملاء" },
-  { id: "contact", label: "تواصل" },
-];
-
-const services = [
-  {
-    icon: <Paintbrush className="w-8 h-8" />, 
-    title: "دهانات داخلية وخارجية",
-    desc: "تنفيذ دهانات مائية وزيتية وديكورية مع تجهيز الأسطح ومعاجين وبرايمر.",
-  },
-  {
-    icon: <Palette className="w-8 h-8" />, 
-    title: "تصميم داخلي وألوان",
-    desc: "تنسيق ألوان وخيارات التشطيب مع مخططات ثلاثية الأبعاد عند الطلب.",
-  },
-  {
-    icon: <Hammer className="w-8 h-8" />, 
-    title: "ورق جدران وديكورات",
-    desc: "تركيب ورق جدران ولوحات ديكورية وقواطع بسيطة وإضاءة مخفية.",
-  },
-  {
-    icon: <Building2 className="w-8 h-8" />, 
-    title: "مشاريع سكنية وتجارية",
-    desc: "إدارة وتنفيذ كامل للمشاريع من المعاينة وحتى التسليم.",
-  },
-];
-
-const portfolio = [
-  { src: "https://images.unsplash.com/photo-1501621667575-af81f1f0bacc?q=80&w=1200&auto=format&fit=crop", title: "غرفة معيشة — درجات دافئة" },
-  { src: "https://images.unsplash.com/photo-1505692794403-34d4982f88aa?q=80&w=1200&auto=format&fit=crop", title: "واجهة خارجية — طلاء أكريليك" },
-  { src: "https://images.unsplash.com/photo-1451153378752-16ef2b36ad05?q=80&w=1200&auto=format&fit=crop", title: "مكتب — بوية صديقة للبيئة" },
-  { src: "https://images.unsplash.com/photo-1501045661006-fcebe0257c3f?q=80&w=1200&auto=format&fit=crop", title: "غرفة نوم — ورق جدران" },
-  { src: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200&auto=format&fit=crop", title: "صالة استقبال — دهان ديكوري" },
-  { src: "https://images.unsplash.com/photo-1505691723518-36a5ac3b2b8f?q=80&w=1200&auto=format&fit=crop", title: "سلم داخلي — لمسة فاخرة" },
-];
-
-const plans = [
-  {
-    name: "باقة أساسية",
-    price: "ابتداءً من 6 د.أ/م²",
-    features: [
-      "معاينة ومسح مبدئي",
-      "تجهيز أسطح (صنفرة/معجون/برايمر)",
-      "طبقتان دهان مائي بجودة اقتصادية",
-      "ضمان تنفيذ 3 أشهر",
-    ],
-  },
-  {
-    name: "باقة قياسية",
-    price: "ابتداءً من 8 د.أ/م²",
-    features: [
-      "استشارة ألوان",
-      "مواد درجة أولى صديقة للبيئة",
-      "تصحيح عيوب الجدران",
-      "تنظيف وتسليم نهائي",
-      "ضمان تنفيذ 6 أشهر",
-    ],
-    popular: true,
-  },
-  {
-    name: "باقة فاخرة",
-    price: "سعر مخصص",
-    features: [
-      "تصميم داخلي وBoard ألوان",
-      "دهانات ديكورية/ميكروسيمنت",
-      "تنسيق ورق جدران وإضاءة مخفية",
-      "إدارة مشروع كاملة",
-      "ضمان تنفيذ 12 شهرًا",
-    ],
-  },
-];
-
-const testimonials = [
-  {
-    name: "أ. ليث — خلدا",
-    text: "التسليم كان قبل الموعد والجودة رائعة. الفريق محترف بالنظافة والدقة.",
-    rating: 5,
-  },
-  {
-    name: "م. رانيا — عبدون",
-    text: "ساعدونا باختيار الألوان وطلع المكان فاخر. أنصح فيهم.",
-    rating: 5,
-  },
-  {
-    name: "م. سيف — الصويفية",
-    text: "تعامل ممتاز وسعر منطقي مقارنة بالخدمة والضمان.",
-    rating: 4,
-  },
-];
-
-function StarRating({ value }: { value: number }) {
-  return (
-    <div className="flex gap-1" aria-label={`تقييم ${value} من 5`}>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <Star key={i} className={`w-4 h-4 ${i < value ? "fill-current" : "stroke-current"}`} />
-      ))}
-    </div>
-  );
-}
-
-function Header() {
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
-  return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b">
-      <div className="container mx-auto px-4 py-3 flex items-center justify-between" dir="rtl">
-        <div className="flex items-center gap-2">
-          <Paintbrush className="w-6 h-6" />
-          <span className="font-bold text-xl">ألوان عمّان</span>
-        </div>
-        <nav className="hidden md:flex items-center gap-6">
-          {navItems.map((item) => (
-            <button key={item.id} onClick={() => scrollTo(item.id)} className="text-sm hover:text-primary transition">
-              {item.label}
-            </button>
-          ))}
-          <a href="#contact" className="">
-            <Button className="rounded-2xl">احصل على تسعير</Button>
-          </a>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دهانات الجزيرة</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#products">المنتجات</a></li>
+                <li><a href="#calculator">حاسبة الدهان</a></li>
+                <li><a href="#contact">اتصل بنا</a></li>
+            </ul>
         </nav>
-        <div className="md:hidden">
-          <a href="#contact"><Button size="sm">تواصل</Button></a>
-        </div>
-      </div>
     </header>
-  );
-}
 
-function Hero() {
-  return (
-    <section className="relative overflow-hidden" dir="rtl">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-orange-50 via-white to-white" />
-      <div className="container mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 gap-8 items-center">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4">
-            تنفيذ أعمال الدهان والتصميم الداخلي في عمّان
-          </h1>
-          <p className="text-muted-foreground text-lg md:text-xl mb-6">
-            نخدم الشقق والفلل والمكاتب والمحلات التجارية — جودة عالية، التزام بالمواعيد، وضمان تنفيذ مكتوب.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <a href="#contact"><Button size="lg" className="rounded-2xl">احجز معاينة مجانية</Button></a>
-            <a href="#portfolio"><Button variant="outline" size="lg" className="rounded-2xl">شاهد أعمالنا</Button></a>
-          </div>
-          <div className="mt-6 flex items-center gap-4 text-sm text-muted-foreground">
-            <div className="flex items-center gap-2"><CheckCircle className="w-5 h-5" /> مواد درجة أولى</div>
-            <div className="flex items-center gap-2"><CheckCircle className="w-5 h-5" /> طاقم محترف</div>
-            <div className="flex items-center gap-2"><CheckCircle className="w-5 h-5" /> ضمان مكتوب</div>
-          </div>
-        </motion.div>
-        <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.1 }}>
-          <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-lg">
-            <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1400&auto=format&fit=crop" alt="Painting and interior" className="w-full h-full object-cover" />
-            <div className="absolute bottom-0 w-full bg-white/80 backdrop-blur p-4 flex items-center justify-between">
-              <div className="flex items-center gap-2"><Home className="w-5 h-5" /><span className="text-sm">أكثر من 300 مشروع مكتمل</span></div>
-              <div className="flex items-center gap-2"><Quote className="w-5 h-5" /><span className="text-sm">تقييم 4.9/5</span></div>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-function Services() {
-  return (
-    <section id="services" className="py-16 md:py-24" dir="rtl">
-      <div className="container mx-auto px-4">
-        <h2 className="text-2xl md:text-4xl font-bold mb-10">خدماتنا</h2>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {services.map((s, idx) => (
-            <motion.div key={idx} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: idx * 0.05 }}>
-              <Card className="rounded-3xl h-full">
-                <CardHeader className="flex flex-row items-center gap-3">
-                  <div className="p-2 rounded-xl bg-orange-50 border">{s.icon}</div>
-                  <CardTitle className="text-lg">{s.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground">{s.desc}</CardContent>
-              </Card>
-            </motion.div>
-          ))}
+    <!-- قسم المنتجات -->
+    <section id="products">
+        <h2>منتجاتنا</h2>
+        <div class="product">
+            <img src="images/product1.jpg" alt="منتج 1">
+            <p>دهان داخلي ممتاز</p>
+            <p>السعر: 120 ريال</p>
         </div>
-      </div>
-    </section>
-  );
-}
-
-function Portfolio() {
-  return (
-    <section id="portfolio" className="py-16 md:py-24 bg-muted/30" dir="rtl">
-      <div className="container mx-auto px-4">
-        <div className="flex items-end justify-between mb-8">
-          <h2 className="text-2xl md:text-4xl font-bold">المعرض</h2>
-          <a href="#contact" className="text-sm hover:underline flex items-center gap-1">اطلب تسعيراً للمشروع <ChevronRight className="w-4 h-4" /></a>
+        <div class="product">
+            <img src="images/product2.jpg" alt="منتج 2">
+            <p>دهان خارجي مقاوم</p>
+            <p>السعر: 150 ريال</p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {portfolio.map((item, i) => (
-            <motion.figure key={i} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.05 }} className="relative overflow-hidden rounded-3xl shadow">
-              <img src={item.src} alt={item.title} className="w-full h-64 object-cover" />
-              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent text-white p-3 text-sm">{item.title}</figcaption>
-            </motion.figure>
-          ))}
+        <div class="product">
+            <img src="images/product3.jpg" alt="منتج 3">
+            <p>دهان ضد الرطوبة</p>
+            <p>السعر: 180 ريال</p>
         </div>
-      </div>
     </section>
-  );
-}
 
-function Process() {
-  const steps = [
-    { title: "اتصال ومعاينة", desc: "نتواصل ونحدد موعد معاينة مجانية للموقع." },
-    { title: "عرض سعر", desc: "نرسل عرض سعر واضح بالمتر أو بالمشروع مع المواد والمدة." },
-    { title: "تجهيز وتنفيذ", desc: "تجهيز الأسطح وتنفيذ الدهان وفق جدول زمني متفق عليه." },
-    { title: "تسليم وضمان", desc: "تنظيف وتسليم نهائي مع ضمان مكتوب." },
-  ];
-
-  return (
-    <section id="process" className="py-16 md:py-24" dir="rtl">
-      <div className="container mx-auto px-4">
-        <h2 className="text-2xl md:text-4xl font-bold mb-10">كيف نعمل</h2>
-        <div className="grid md:grid-cols-4 gap-6">
-          {steps.map((st, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.05 }}>
-              <Card className="rounded-3xl h-full">
-                <CardHeader>
-                  <div className="text-5xl font-black text-orange-500/80">{i + 1}</div>
-                  <CardTitle className="mt-2">{st.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground">{st.desc}</CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-      </div>
+    <!-- حاسبة الدهان -->
+    <section id="calculator">
+        <h2>حاسبة الدهان</h2>
+        <form id="paintForm">
+            <label for="area">المساحة بالمتر²:</label>
+            <input type="number" id="area" name="area" required>
+            <button type="submit">احسب</button>
+        </form>
+        <p id="result"></p>
     </section>
-  );
-}
 
-function Pricing() {
-  return (
-    <section id="pricing" className="py-16 md:py-24 bg-muted/30" dir="rtl">
-      <div className="container mx-auto px-4">
-        <h2 className="text-2xl md:text-4xl font-bold mb-10">الباقات والأسعار الإرشادية</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {plans.map((p, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.05 }}>
-              <Card className={`rounded-3xl h-full ${p.popular ? "border-orange-400 shadow-lg" : ""}`}>
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between text-xl">
-                    <span>{p.name}</span>
-                    {p.popular && <span className="text-xs px-2 py-1 rounded-full bg-orange-100 border border-orange-300">الأكثر طلبًا</span>}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold mb-4">{p.price}</div>
-                  <ul className="space-y-2 text-muted-foreground">
-                    {p.features.map((f, idx) => (
-                      <li key={idx} className="flex items-center gap-2">
-                        <CheckCircle className="w-4 h-4" /> {f}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-        <p className="text-xs text-muted-foreground mt-4">* الأسعار تقديرية وتختلف حسب حالة الأسطح ونوع المواد والمساحات. سنؤكد السعر بعد المعاينة.</p>
-      </div>
+    <!-- اتصل بنا -->
+    <section id="contact">
+        <h2>اتصل بنا</h2>
+        <p>البريد الإلكتروني: info@jazeerapaints.com</p>
+        <p>رقم الهاتف: 12345678</p>
     </section>
-  );
-}
 
-function Testimonials() {
-  return (
-    <section id="testimonials" className="py-16 md:py-24" dir="rtl">
-      <div className="container mx-auto px-4">
-        <h2 className="text-2xl md:text-4xl font-bold mb-10">آراء العملاء</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {testimonials.map((t, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.05 }}>
-              <Card className="rounded-3xl h-full">
-                <CardContent className="p-6">
-                  <Quote className="w-6 h-6 mb-4" />
-                  <p className="text-muted-foreground leading-relaxed">{t.text}</p>
-                  <div className="mt-4 flex items-center justify-between">
-                    <div className="font-semibold">{t.name}</div>
-                    <StarRating value={t.rating} />
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Contact() {
-  const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSending(true);
-    // مبدئياً: استخدم Formspree أو API خاص بك لاحقًا.
-    setTimeout(() => { setSending(false); setSent(true); }, 900);
-  };
-
-  return (
-    <section id="contact" className="py-16 md:py-24 bg-gradient-to-b from-white to-orange-50/40" dir="rtl">
-      <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-2 gap-8 items-start">
-          <div>
-            <h2 className="text-2xl md:text-4xl font-bold mb-4">احجز معاينة مجانية الآن</h2>
-            <p className="text-muted-foreground mb-6">املأ البيانات وسنعاود الاتصال خلال ساعات العمل. أو تواصل مباشرة عبر واتساب.</p>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-center gap-2"><Phone className="w-4 h-4" /> <a className="hover:underline" href="https://wa.me/PLACEHOLDER_PHONE" target="_blank" rel="noreferrer">واتساب مباشر</a></div>
-              <div className="flex items-center gap-2"><Mail className="w-4 h-4" /> <a className="hover:underline" href="mailto:PLACEHOLDER_EMAIL">PLACEHOLDER_EMAIL</a></div>
-              <div className="flex items-center gap-2"><MapPin className="w-4 h-4" /> عمّان، الأردن</div>
-            </div>
-            <div className="mt-6 flex gap-3">
-              <a href="https://instagram.com/your_instagram" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm hover:underline"><Instagram className="w-4 h-4" /> إنستغرام</a>
-              <a href="https://facebook.com/your_facebook" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm hover:underline"><Facebook className="w-4 h-4" /> فيسبوك</a>
-            </div>
-          </div>
-          <Card className="rounded-3xl">
-            <CardHeader>
-              <CardTitle>نموذج الطلب</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {sent ? (
-                <div className="p-6 bg-green-50 border border-green-200 rounded-2xl">✅ تم استلام طلبك، سنتواصل معك قريبًا.</div>
-              ) : (
-                <form onSubmit={handleSubmit} className="grid gap-4">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <Input required placeholder="الاسم الكامل" dir="rtl" />
-                    <Input required type="tel" placeholder="رقم الهاتف" dir="rtl" />
-                  </div>
-                  <Input type="email" placeholder="البريد الإلكتروني (اختياري)" dir="rtl" />
-                  <Input placeholder="المنطقة/الحي" dir="rtl" />
-                  <Textarea required placeholder="وصف موجز للمساحة (مثال: شقة 120م²، دهان داخلي)" dir="rtl" />
-                  <div className="flex items-center justify-between">
-                    <div className="text-xs text-muted-foreground">بالنقر على إرسال فأنت توافق على سياسة الخصوصية.</div>
-                    <Button type="submit" disabled={sending} className="rounded-2xl">{sending ? "جاري الإرسال..." : "إرسال"}</Button>
-                  </div>
-                </form>
-              )}
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-
-      {/* زر واتساب عائم */}
-      <a href="https://wa.me/PLACEHOLDER_PHONE" target="_blank" rel="noreferrer" className="fixed bottom-6 left-6 inline-flex items-center gap-2 px-4 py-3 rounded-full shadow-lg bg-green-500 text-white">
-        <MessageCircle className="w-5 h-5" /> تواصل واتساب
-      </a>
-    </section>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="py-10 border-t" dir="rtl">
-      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} ألوان عمّان — تنفيذ دهانات وتصميم داخلي.</p>
-        <div className="text-xs text-muted-foreground">مُصمّم بالحب — جاهز للنشر.</div>
-      </div>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 دهانات الجزيرة. جميع الحقوق محفوظة.</p>
     </footer>
-  );
-}
 
-export default function LandingPage() {
-  return (
-    <main className="min-h-screen bg-white text-slate-900">
-      <Header />
-      <Hero />
-      <Services />
-      <Portfolio />
-      <Process />
-      <Pricing />
-      <Testimonials />
-      <Contact />
-      <Footer />
-    </main>
-  );
-}
+    <script src="script.js"></script>
+</body>
+</html>
