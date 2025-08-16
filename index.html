@@ -20,6 +20,13 @@
   </nav>
 </header>
 
+<!-- Hero Slider Section -->
+<section class="hero-slider">
+  <img src="hero1.jpg" alt="تصميم داخلي 1" class="active">
+  <img src="hero2.jpg" alt="تصميم داخلي 2">
+  <img src="hero3.jpg" alt="تصميم داخلي 3">
+</section>
+
 <main>
 
   <!-- About Section -->
@@ -61,6 +68,22 @@
   <a href="#">الشروط والأحكام</a>
 </footer>
 
+<script>
+// Hero Slider JavaScript
+let slides = document.querySelectorAll('.hero-slider img');
+let currentSlide = 0;
+
+function showNextSlide() {
+  slides[currentSlide].classList.remove('active');
+  currentSlide = (currentSlide + 1) % slides.length;
+  slides[currentSlide].classList.add('active');
+}
+
+// تغيير الصورة كل 3 ثواني
+setInterval(showNextSlide, 3000);
+</script>
+
 </body>
 </html>
+
 
