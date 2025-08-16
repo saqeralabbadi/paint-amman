@@ -1,109 +1,80 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Art Axis - منتجاتنا</title>
-    <style>
-        body { margin:0; font-family: Arial, sans-serif; direction: rtl; background:#f5f5f5; }
-        header { background: linear-gradient(to right,#ff4d4d,#ffb84d,#fff44d,#4dff4d,#4dffff,#4d4dff,#b84dff); color:#fff; text-align:center; padding:20px; font-size:2em; font-weight:bold; }
-        nav { display:flex; justify-content:center; background:#fff; box-shadow:0 2px 5px rgba(0,0,0,0.1); flex-wrap:wrap; }
-        nav a { color:#333; text-decoration:none; margin:10px 20px; padding:10px; font-weight:bold; transition:0.3s; }
-        nav a:hover { color:#ff4d4d; }
-        .hero { background:url('https://i.ibb.co/FJwVhgV/paint-brush-color.jpg') center/cover no-repeat; height:400px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:2.5em; font-weight:bold; text-shadow:2px 2px 6px rgba(0,0,0,0.5);}
-        .filter { display:flex; justify-content:center; gap:15px; margin:30px 0; flex-wrap:wrap;}
-        .filter select { padding:8px; font-size:1em; }
-        .products-section { padding:40px 20px; text-align:center;}
-        .products-section h2 { font-size:2em; margin-bottom:30px; color:#333;}
-        .products { display:flex; flex-wrap:wrap; justify-content:center; gap:25px;}
-        .product { background:#fff; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); width:250px; overflow:hidden; transition: transform 0.3s;}
-        .product:hover { transform: translateY(-5px); }
-        .product img { width:100%; height:180px; object-fit:cover; }
-        .product-details { padding:15px; text-align:center;}
-        .product-details h3 { margin:10px 0 5px 0; font-size:1.2em; color:#333;}
-        .product-details p { color:#666; font-size:0.9em; }
-        .price { margin-top:10px; color:#ff4d4d; font-weight:bold; font-size:1.1em;}
-        footer { background: linear-gradient(to right,#ff4d4d,#ffb84d,#fff44d,#4dff4d,#4dffff,#4d4dff,#b84dff); color:#fff; text-align:center; padding:20px; margin-top:40px;}
-        footer a { color:#fff; text-decoration:underline; }
-        @media(max-width:768px){ .products { flex-direction:column; align-items:center;} nav { flex-direction:column;} nav a { margin:10px 0; }}
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jotun Clone</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>Art Axis</header>
-    <nav>
-        <a href="index.html">الرئيسية</a>
-        <a href="#">منتجاتنا</a>
-        <a href="#">نصائح الديكور</a>
-        <a href="#">تواصل معنا</a>
-    </nav>
-    <div class="hero">
-        
-    </div>
 
-    <div class="filter">
-        <select id="colorFilter" onchange="filterProducts()">
-            <option value="all">جميع الألوان</option>
-            <option value="أبيض">أبيض</option>
-            <option value="أزرق">أزرق</option>
-            <option value="أصفر">أصفر</option>
-            <option value="أحمر">أحمر</option>
-            <option value="أخضر">أخضر</option>
-        </select>
-        <select id="typeFilter" onchange="filterProducts()">
-            <option value="all">جميع الأنواع</option>
-            <option value="حوائط داخلية">حوائط داخلية</option>
-            <option value="حوائط خارجية">حوائط خارجية</option>
-            <option value="خشب">خشب</option>
-        </select>
-    </div>
-
-    <section class="products-section">
-        <h2>منتجاتنا</h2>
-        <div class="products" id="productsContainer">
-            <div class="product" data-color="أبيض" data-type="حوائط داخلية">
-                <img src="https://i.ibb.co/K2Rkr4H/paint1.jpg" alt="دهان أبيض">
-                <div class="product-details"><h3>دهان أبيض</h3><p>دهان عالي الجودة للحوائط الداخلية</p><p class="price">25 د.أ</p></div>
-            </div>
-            <div class="product" data-color="أزرق" data-type="حوائط داخلية">
-                <img src="https://i.ibb.co/bR6HhN7/paint2.jpg" alt="دهان أزرق">
-                <div class="product-details"><h3>دهان أزرق</h3><p>لون هادئ لغرف النوم والمكاتب</p><p class="price">30 د.أ</p></div>
-            </div>
-            <div class="product" data-color="أصفر" data-type="حوائط خارجية">
-                <img src="https://i.ibb.co/4tq5B9D/paint3.jpg" alt="دهان أصفر">
-                <div class="product-details"><h3>دهان أصفر</h3><p>لون مشرق لغرف المعيشة والمطابخ</p><p class="price">28 د.أ</p></div>
-            </div>
-            <div class="product" data-color="أحمر" data-type="خشب">
-                <img src="https://i.ibb.co/yVn3TJ6/paint-red.jpg" alt="دهان أحمر">
-                <div class="product-details"><h3>دهان أحمر</h3><p>لون نابض بالحياة للأثاث الخشبي</p><p class="price">32 د.أ</p></div>
-            </div>
-            <div class="product" data-color="أخضر" data-type="حوائط خارجية">
-                <img src="https://i.ibb.co/pR0m4vF/paint-green.jpg" alt="دهان أخضر">
-                <div class="product-details"><h3>دهان أخضر</h3><p>لون طبيعي للحدائق والأسطح الخارجية</p><p class="price">29 د.أ</p></div>
-            </div>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="logo">Jotun Clone</div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#">الرئيسية</a></li>
+          <li><a href="#">الدهانات</a></li>
+          <li><a href="#">الألوان</a></li>
+          <li><a href="#">اتصل بنا</a></li>
+        </ul>
+        <div class="burger">
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
-    </section>
+      </nav>
+    </div>
+  </header>
 
-    <footer>
-        جميع الحقوق محفوظة &copy; 2025 | <a href="#">تواصل معنا</a>
-    </footer>
+  <!-- Banner -->
+  <section class="banner">
+    <img src="images/banner.jpg" alt="Banner">
+    <div class="banner-text">
+      <h1>مرحبا بكم في جوتن</h1>
+      <p>أفضل الدهانات والألوان المبتكرة لمنزلك</p>
+      <a href="#" class="btn">اكتشف المزيد</a>
+    </div>
+  </section>
 
-    <script>
-        function filterProducts() {
-            const color = document.getElementById('colorFilter').value;
-            const type = document.getElementById('typeFilter').value;
-            const products = document.querySelectorAll('.product');
-            products.forEach(product => {
-                const productColor = product.getAttribute('data-color');
-                const productType = product.getAttribute('data-type');
-                if ((color==='all'||color===productColor)&&(type==='all'||type===productType)){
-                    product.style.display='block';
-                } else {
-                    product.style.display='none';
-                }
-            });
-        }
-    </script>
+  <!-- Products Section -->
+  <section class="products">
+    <div class="container">
+      <h2>منتجاتنا</h2>
+      <div class="product-grid">
+        <div class="product-card">
+          <img src="images/product1.jpg" alt="منتج 1">
+          <h3>منتج 1</h3>
+          <p>وصف قصير للمنتج</p>
+        </div>
+        <div class="product-card">
+          <img src="images/product2.jpg" alt="منتج 2">
+          <h3>منتج 2</h3>
+          <p>وصف قصير للمنتج</p>
+        </div>
+        <div class="product-card">
+          <img src="images/product3.jpg" alt="منتج 3">
+          <h3>منتج 3</h3>
+          <p>وصف قصير للمنتج</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-info">
+        <p>&copy; 2025 Jotun Clone. جميع الحقوق محفوظة.</p>
+        <ul>
+          <li><a href="#">سياسة الخصوصية</a></li>
+          <li><a href="#">الشروط والأحكام</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
-
-
