@@ -1,132 +1,161 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jotun Clone</title>
-  <style>
-    /* Reset */
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Arial',sans-serif;}
-    body{line-height:1.6;background:#fff;color:#333;}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jotun Clone - نسخة طبق الأصل</title>
+<style>
+/* Reset & Base */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#fff;color:#333;line-height:1.6;}
+.container{width:90%;max-width:1300px;margin:auto;}
+a{text-decoration:none;color:inherit;}
 
-    /* Container */
-    .container{width:90%;max-width:1200px;margin:auto;}
+/* Header */
+header{position:fixed;width:100%;top:0;left:0;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.1);z-index:1000;}
+header .container{display:flex;justify-content:space-between;align-items:center;padding:15px 0;}
+.logo{font-size:28px;font-weight:700;color:#1a1a1a;}
+nav ul{display:flex;gap:25px;list-style:none;transition:0.3s;}
+nav ul li{position:relative;}
+nav ul li a{font-weight:500;transition:0.3s;}
+nav ul li a:hover{color:#ed1c24;}
+/* Dropdown */
+nav ul li ul{position:absolute;top:35px;right:0;background:#fff;list-style:none;padding:10px 0;min-width:180px;box-shadow:0 2px 10px rgba(0,0,0,0.15);opacity:0;visibility:hidden;transition:0.3s;}
+nav ul li:hover ul{opacity:1;visibility:visible;}
+nav ul li ul li{padding:8px 20px;}
+nav ul li ul li a:hover{color:#ed1c24;}
 
-    /* Header */
-    header{background:#fff;box-shadow:0 2px 5px rgba(0,0,0,0.1);position:sticky;top:0;z-index:1000;}
-    header .container{display:flex;justify-content:space-between;align-items:center;padding:15px 0;}
-    .logo{font-size:28px;font-weight:bold;color:#1a1a1a;}
-    nav ul{display:flex;gap:20px;list-style:none;}
-    nav ul li a{text-decoration:none;color:#333;font-weight:bold;transition:0.3s;}
-    nav ul li a:hover{color:#ed1c24;}
-    /* Burger Menu */
-    .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
-    .burger div{width:25px;height:3px;background:#333;}
+/* Burger Menu */
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+.burger div{width:25px;height:3px;background:#333;}
 
-    /* Banner */
-    .banner{position:relative;text-align:center;}
-    .banner img{width:100%;height:auto;}
-    .banner-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;text-align:center;}
-    .banner-text h1{font-size:48px;margin-bottom:10px;text-shadow:2px 2px 5px rgba(0,0,0,0.5);}
-    .banner-text p{font-size:22px;margin-bottom:20px;text-shadow:1px 1px 4px rgba(0,0,0,0.5);}
-    .banner-text .btn{background:#ed1c24;color:#fff;padding:12px 30px;border-radius:5px;text-decoration:none;font-weight:bold;transition:0.3s;}
-    .banner-text .btn:hover{background:#c0171d;}
+/* Banner / Slider */
+.banner{position:relative;width:100%;height:80vh;overflow:hidden;}
+.slide{position:absolute;width:100%;height:100%;opacity:0;transition:opacity 1s ease-in-out;}
+.slide.active{opacity:1;}
+.slide img{width:100%;height:100%;object-fit:cover;}
+.banner-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;text-align:center;}
+.banner-text h1{font-size:50px;font-weight:700;margin-bottom:15px;text-shadow:2px 2px 10px rgba(0,0,0,0.6);}
+.banner-text p{font-size:22px;margin-bottom:25px;text-shadow:1px 1px 8px rgba(0,0,0,0.5);}
+.banner-text .btn{background:#ed1c24;color:#fff;padding:12px 30px;border-radius:5px;font-weight:600;transition:0.3s;}
+.banner-text .btn:hover{background:#c0171d;}
 
-    /* Products */
-    .products{padding:60px 0;background:#f9f9f9;}
-    .products h2{text-align:center;margin-bottom:50px;font-size:36px;color:#1a1a1a;}
-    .product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;}
-    .product-card{background:#fff;border-radius:10px;overflow:hidden;text-align:center;padding:15px;box-shadow:0 2px 8px rgba(0,0,0,0.1);transition:0.3s;}
-    .product-card:hover{transform:translateY(-5px);box-shadow:0 5px 15px rgba(0,0,0,0.2);}
-    .product-card img{width:100%;height:auto;margin-bottom:15px;}
-    .product-card h3{font-size:22px;color:#1a1a1a;margin-bottom:10px;}
-    .product-card p{font-size:16px;color:#555;}
+/* Products */
+.products{padding:80px 0;background:#f9f9f9;}
+.products h2{text-align:center;font-size:36px;margin-bottom:50px;color:#1a1a1a;}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;}
+.product-card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1);text-align:center;transition:0.4s;}
+.product-card:hover{transform:translateY(-8px);box-shadow:0 8px 25px rgba(0,0,0,0.2);}
+.product-card img{width:100%;height:200px;object-fit:cover;margin-bottom:15px;}
+.product-card h3{font-size:22px;margin-bottom:10px;color:#1a1a1a;}
+.product-card p{font-size:16px;color:#555;padding:0 10px 15px;}
 
-    /* Footer */
-    footer{background:#333;color:#fff;padding:30px 0;text-align:center;}
-    footer a{color:#fff;text-decoration:none;margin-left:15px;transition:0.3s;}
-    footer a:hover{color:#ed1c24;}
+/* Footer */
+footer{background:#333;color:#fff;padding:50px 0;text-align:center;}
+footer a{color:#fff;margin-left:15px;transition:0.3s;}
+footer a:hover{color:#ed1c24;}
 
-    /* Responsive */
-    @media(max-width:768px){
-      nav ul{display:none;flex-direction:column;background:#fff;position:absolute;top:65px;right:0;width:200px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.2);}
-      nav ul.active{display:flex;}
-      .burger{display:flex;}
-    }
-  </style>
+/* Responsive */
+@media(max-width:1024px){nav ul{gap:15px;}}
+@media(max-width:768px){
+  nav ul{position:absolute;top:65px;right:0;width:220px;background:#fff;flex-direction:column;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.2);display:none;}
+  nav ul.active{display:flex;}
+  .burger{display:flex;}
+  nav ul li ul{position:relative;top:0;right:0;box-shadow:none;}
+}
+/* Optional Smooth Scroll */
+html{scroll-behavior:smooth;}
+</style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="container">
-      <div class="logo">Jotun Clone</div>
-      <nav>
-        <ul>
-          <li><a href="#">الرئيسية</a></li>
-          <li><a href="#">الدهانات</a></li>
-          <li><a href="#">الألوان</a></li>
-          <li><a href="#">اتصل بنا</a></li>
-        </ul>
-        <div class="burger">
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </nav>
-    </div>
-  </header>
+<!-- Header -->
+<header>
+  <div class="container">
+    <div class="logo">Jotun Clone</div>
+    <nav>
+      <ul>
+        <li><a href="#">الرئيسية</a></li>
+        <li><a href="#">الدهانات</a>
+          <ul>
+            <li><a href="#">دهانات داخلية</a></li>
+            <li><a href="#">دهانات خارجية</a></li>
+            <li><a href="#">دهانات خاصة</a></li>
+          </ul>
+        </li>
+        <li><a href="#">الألوان</a></li>
+        <li><a href="#">اتصل بنا</a></li>
+      </ul>
+      <div class="burger">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </nav>
+  </div>
+</header>
 
-  <!-- Banner -->
-  <section class="banner">
-    <img src="images/banner.jpg" alt="Banner">
-    <div class="banner-text">
-      <h1>حوّل مساحتك بألوان فائقة الجودة</h1>
-      <p>استكشف مجموعة واسعة من الألوان والدهانات التي تضفي لمسة جمالية على منزلك</p>
-      <a href="#" class="btn">اكتشف المزيد</a>
-    </div>
-  </section>
+<!-- Banner / Slider -->
+<section class="banner">
+  <div class="slide active"><img src="images/banner1.jpg" alt="Slide 1"></div>
+  <div class="slide"><img src="images/banner2.jpg" alt="Slide 2"></div>
+  <div class="slide"><img src="images/banner3.jpg" alt="Slide 3"></div>
+  <div class="banner-text">
+    <h1>حوّل مساحتك بألوان فائقة الجودة</h1>
+    <p>استكشف مجموعة واسعة من الألوان والدهانات التي تضفي لمسة جمالية على منزلك</p>
+    <a href="#" class="btn">اكتشف المزيد</a>
+  </div>
+</section>
 
-  <!-- Products -->
-  <section class="products">
-    <div class="container">
-      <h2>منتجاتنا</h2>
-      <div class="product-grid">
-        <div class="product-card">
-          <img src="images/product1.jpg" alt="منتج 1">
-          <h3>منتج 1</h3>
-          <p>وصف المنتج 1</p>
-        </div>
-        <div class="product-card">
-          <img src="images/product2.jpg" alt="منتج 2">
-          <h3>منتج 2</h3>
-          <p>وصف المنتج 2</p>
-        </div>
-        <div class="product-card">
-          <img src="images/product3.jpg" alt="منتج 3">
-          <h3>منتج 3</h3>
-          <p>وصف المنتج 3</p>
-        </div>
+<!-- Products -->
+<section class="products">
+  <div class="container">
+    <h2>منتجاتنا</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="images/product1.jpg" alt="منتج 1">
+        <h3>دهان داخلي</h3>
+        <p>وصف تفصيلي للمنتج مع خصائصه ومميزاته.</p>
+      </div>
+      <div class="product-card">
+        <img src="images/product2.jpg" alt="منتج 2">
+        <h3>دهان خارجي</h3>
+        <p>وصف تفصيلي للمنتج مع خصائصه ومميزاته.</p>
+      </div>
+      <div class="product-card">
+        <img src="images/product3.jpg" alt="منتج 3">
+        <h3>دهان خاص</h3>
+        <p>وصف تفصيلي للمنتج مع خصائصه ومميزاته.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 Jotun Clone. جميع الحقوق محفوظة.</p>
-      <a href="#">سياسة الخصوصية</a>
-      <a href="#">الشروط والأحكام</a>
-    </div>
-  </footer>
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>&copy; 2025 Jotun Clone. جميع الحقوق محفوظة.</p>
+    <a href="#">سياسة الخصوصية</a>
+    <a href="#">الشروط والأحكام</a>
+  </div>
+</footer>
 
-  <script>
-    const burger = document.querySelector('.burger');
-    const nav = document.querySelector('nav ul');
-    burger.addEventListener('click', () => {
-      nav.classList.toggle('active');
-    });
-  </script>
+<!-- JS -->
+<script>
+// Burger Menu Toggle
+const burger = document.querySelector('.burger');
+const nav = document.querySelector('nav ul');
+burger.addEventListener('click', () => nav.classList.toggle('active'));
 
+// Banner Slider
+let slides = document.querySelectorAll('.slide');
+let current = 0;
+setInterval(() => {
+  slides[current].classList.remove('active');
+  current = (current+1) % slides.length;
+  slides[current].classList.add('active');
+}, 5000);
+</script>
 </body>
 </html>
+
